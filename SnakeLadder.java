@@ -15,23 +15,24 @@ public class SnakeLadder {
         1 -> ladder (move forward)
         0 -> snake (move backward)
          */
-        int ladderOrSnake = Math.random() <= 0.5 ? 1 : 0;
-        if(ladderOrSnake == 1){
-            if(currPos + diceNum > lastPos){
-                System.out.println("No play");
+        while(currPos != 100){
+            int ladderOrSnake = Math.random() <= 0.5 ? 1 : 0;
+            if(ladderOrSnake == 1){
+                if(currPos + diceNum > lastPos){
+                    System.out.println("No play");
+                }else{
+                    currPos += diceNum;
+                    System.out.println("Found ladder and moved to pos: " + currPos);
+                }
             }else{
-                currPos += diceNum;
-                System.out.println("Found ladder and moved to pos: " + currPos);
-            }
-        }else{
-            if(currPos - diceNum < startPos){
-                System.out.println("No play");
-            }else{
-                currPos -= diceNum;
-                System.out.println("Found snake and moved to pos: " + currPos);
+                if(currPos - diceNum < startPos){
+                    currPos = 0;
+                    System.out.println("No play");
+                }else{
+                    currPos -= diceNum;
+                    System.out.println("Found snake and moved to pos: " + currPos);
+                }
             }
         }
-
-
     }
 }
