@@ -15,6 +15,7 @@ public class SnakeLadder {
         1 -> ladder (move forward)
         0 -> snake (move backward)
          */
+        int countOfDiceRoll = 0;
         while(currPos != 100){
             int ladderOrSnake = Math.random() <= 0.5 ? 1 : 0;
             if(ladderOrSnake == 1){
@@ -33,6 +34,8 @@ public class SnakeLadder {
                     System.out.println("Found snake and moved to pos: " + currPos);
                 }
             }
+            countOfDiceRoll++;
         }
+        System.out.println("Player took "+countOfDiceRoll+" dice rolls to reach 100.");
     }
 }
