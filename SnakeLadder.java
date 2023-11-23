@@ -7,35 +7,68 @@ public class SnakeLadder {
 
     public static void main(String[] args) {
         System.out.println("Starting with single player from position 0.");
-        int currPos = 0;
+        int posPlayer1 = 0;
+        int posPlayer2 = 0;
 
-        int diceNum = (int)(Math.random()*6)+1; // dice number from 1 to 6
+        int diceNum = (int) (Math.random() * 6) + 1; // dice number from 1 to 6
 
         /*
         1 -> ladder (move forward)
         0 -> snake (move backward)
          */
         int countOfDiceRoll = 0;
-        while(currPos != 100){
+
+        /*
+        turn->1 means player 1 turns
+        turn->2 means player 2 turns
+         */
+        int turn = 1;
+        while (posPlayer2 != 100 && posPlayer1 != 100) {
             int ladderOrSnake = Math.random() <= 0.5 ? 1 : 0;
-            if(ladderOrSnake == 1){
-                if(currPos + diceNum > lastPos){
-                    System.out.println("No play");
-                }else{
-                    currPos += diceNum;
-                    System.out.println("Found ladder and moved to pos: " + currPos);
+            if (turn == 1) {
+                if (ladderOrSnake == 1) {
+                    if (posPlayer1 + diceNum > lastPos) {
+                        System.out.println("Player 1 stayed to same pos: " + posPlayer1);
+                    } else {
+                        posPlayer1 += diceNum;
+                        System.out.println("Player 1 found ladder and moved to pos: " + posPlayer1);
+                    }
+                } else {
+                    if (posPlayer1 - diceNum < startPos) {
+                        posPlayer1 = 0;
+                        System.out.println("Player 1 reached 0");
+                    } else {
+                        posPlayer1 -= diceNum;
+                        System.out.println("Player 1 found snake and moved to pos: " + posPlayer1);
+                    }
+                    turn = 2;
                 }
-            }else{
-                if(currPos - diceNum < startPos){
-                    currPos = 0;
-                    System.out.println("No play");
-                }else{
-                    currPos -= diceNum;
-                    System.out.println("Found snake and moved to pos: " + currPos);
+            } else {
+                if (ladderOrSnake == 1) {
+                    if (posPlayer2 + diceNum > lastPos) {
+                        System.out.println("Player 2 reached 0");
+                    } else {
+                        posPlayer2 += diceNum;
+                        System.out.println("Player 2 found ladder and moved to pos: " + posPlayer2);
+                    }
+                } else {
+                    if (posPlayer2 - diceNum < startPos) {
+                        posPlayer2 = 0;
+                        System.out.println("Player 2 reached to 0");
+                    } else {
+                        posPlayer2 -= diceNum;
+                        System.out.println("Player 2 found snake and moved to pos: " + posPlayer2);
+                    }
+                    turn = 1;
                 }
             }
             countOfDiceRoll++;
         }
-        System.out.println("Player took "+countOfDiceRoll+" dice rolls to reach 100.");
+        if(posPlayer1 == 100){
+            System.out.println("Player 1 won.");
+        }else{
+            System.out.println("Player 2 won.");
+        }
+        System.out.println("Players took total of " + countOfDiceRoll + " dice rolls to reach 100.");
     }
 }
