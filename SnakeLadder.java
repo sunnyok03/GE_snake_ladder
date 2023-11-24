@@ -1,5 +1,10 @@
 package com.snake_ladder;
 
+
+/*
+@desc: This class describes logic and implementation
+of snake and ladder game
+ */
 public class SnakeLadder {
     public static final int lastPos = 100;
     public static final int startPos = 0;
@@ -10,13 +15,9 @@ public class SnakeLadder {
         int posPlayer1 = 0;
         int posPlayer2 = 0;
 
-        int diceNum = (int) (Math.random() * 6) + 1; // dice number from 1 to 6
 
-        /*
-        1 -> ladder (move forward)
-        0 -> snake (move backward)
-         */
-        int countOfDiceRoll = 0;
+        int countOfDiceRoll1 = 0;
+        int countOfDiceRoll2 = 0;
 
         /*
         turn->1 means player 1 turns
@@ -24,6 +25,11 @@ public class SnakeLadder {
          */
         int turn = 1;
         while (posPlayer2 != 100 && posPlayer1 != 100) {
+            int diceNum = (int) (Math.random() * 6) + 1; // dice number from 1 to 6
+            /*
+            1 -> ladder (move forward)
+            0 -> snake (move backward)
+            */
             int ladderOrSnake = Math.random() <= 0.5 ? 1 : 0;
             if (turn == 1) {
                 if (ladderOrSnake == 1) {
@@ -43,10 +49,11 @@ public class SnakeLadder {
                     }
                     turn = 2;
                 }
+                countOfDiceRoll1++;
             } else {
                 if (ladderOrSnake == 1) {
                     if (posPlayer2 + diceNum > lastPos) {
-                        System.out.println("Player 2 reached 0");
+                        System.out.println("Player 2 stayed to same pos: " + posPlayer2);
                     } else {
                         posPlayer2 += diceNum;
                         System.out.println("Player 2 found ladder and moved to pos: " + posPlayer2);
@@ -61,14 +68,15 @@ public class SnakeLadder {
                     }
                     turn = 1;
                 }
+                countOfDiceRoll2++;
             }
-            countOfDiceRoll++;
         }
         if(posPlayer1 == 100){
             System.out.println("Player 1 won.");
         }else{
             System.out.println("Player 2 won.");
         }
-        System.out.println("Players took total of " + countOfDiceRoll + " dice rolls to reach 100.");
+        System.out.println("Player 1 took " + countOfDiceRoll1 + " dice rolls.");
+        System.out.println("Players 2 took " + countOfDiceRoll2 + " dice rolls.");
     }
 }
