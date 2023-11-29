@@ -1,4 +1,4 @@
-package com.snake_ladder;
+package com.bridgelabz;
 
 
 /*
